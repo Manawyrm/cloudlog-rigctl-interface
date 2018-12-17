@@ -75,5 +75,5 @@ function postInfoToCloudlog($url, $data)
 	]); 
 
 	$result = curl_exec($ch);
-	var_dump($result);
+	//var_dump($result);
 }
