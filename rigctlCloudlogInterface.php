@@ -18,19 +18,18 @@ $lastMode = false;
 
 while (true)
 {
-	$frequency = $rigctl->getFrequency(); 
-	$mode = $rigctl->getMode();
+	$data = $rigctl->getFrequencyAndMode();
 
 	// check if we've gotten a proper response from rigctld
-	if ($frequency !== false && $mode !== false)
+	if ($data !== false)
 	{
 		// only send POST to cloudlog if the settings have changed
-		if ($lastFrequency != $frequency || $lastMode != $mode['mode'] )
+		if ($lastFrequency != $data['frequency'] || $lastMode != $data['mode'] )
 		{
 			$data = [
 				"radio" => $radio_name,
-				"frequency" => $frequency,
-				"mode" => $mode['mode'],
+				"frequency" => $data['frequency'],
+				"mode" => $data['mode'],
 
 				/* Found these additional parameter in magicbug's SatPC32 application. 
 				   I'm not much of a satellite op yet, so I'm not sure how these should be implemented (probably with the secondary VFOs?)
@@ -47,10 +46,10 @@ while (true)
 			];
 
 			postInfoToCloudlog($cloudlog_url, $data);
-			$lastMode = $mode['mode'];
-			$lastFrequency = $frequency;
+			$lastMode = $data['mode'];
+			$lastFrequency = $data['frequency'];
 
-			echo "Updated info. Frequency: " . $frequency . " - Mode: " . $mode['mode'] . "\n";
+			echo "Updated info. Frequency: " . $data['frequency'] . " - Mode: " . $data['mode'] . "\n";
 		}
 		
 	}

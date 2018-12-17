@@ -54,6 +54,22 @@ class rigctldAPI
 		return trim($result);
 	}
 
+	public function getFrequencyAndMode()
+	{
+		$data = $this->runCommand("fm", 3); 
+		if ($data === false)
+			return false; 
+
+		$data = explode("\n", $data); 
+
+		return [
+			"frequency" => $data[0],
+			"mode" => $data[1],
+			"passband" => $data[2]
+		];
+	}
+
+
 	public function getFrequency()
 	{
 		return $this->runCommand("f");
