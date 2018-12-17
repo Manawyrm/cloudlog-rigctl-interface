@@ -42,6 +42,7 @@ while (true)
 				"uplink_freq" => 0,
 				"downlink_mode" => 0,
 				"uplink_mode" => 0,
+				"key" => $cloudlog_apikey
 			];
 
 			postInfoToCloudlog($cloudlog_url, $data);
@@ -74,5 +75,5 @@ function postInfoToCloudlog($url, $data)
 	]); 
 
 	$result = curl_exec($ch);
-
+	var_dump($result);
 }
