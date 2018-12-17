@@ -1,3 +1,4 @@
+#!/usr/bin/php
 <?php
 /**
  * @brief        Cloudlog rigctld Interface
