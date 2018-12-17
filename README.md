@@ -10,6 +10,7 @@ $rigctl_port = 4532;
 
 // Cloudlog-specific parameters
 $cloudlog_url = "https://log.tbspace.de";
+$cloudlog_apikey = "p1fgZhGPbWMRaD4Iz5xm";
 
 // displayed in Cloudlogs Live QSO menu
 $radio_name = "FT-991a";
