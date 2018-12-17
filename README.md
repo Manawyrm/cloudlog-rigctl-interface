@@ -22,6 +22,7 @@ If you're on Debian (or Ubuntu/similar), you can install everything that is requ
 `apt install php-cli php-curl`
 
 Start the software by running `php rigctlCloudlogInterface.php`.
+
 If you want to run it in the background without an open terminal window, you can run `screen php rigctlCloudlogInterface.php`. (this won't work on Windows, sorry!) 
 
 For more information on how-to setup hamlib/rigctld have a look over at the excellent guide written for pat: https://github.com/la5nta/pat/wiki/Rig-control
