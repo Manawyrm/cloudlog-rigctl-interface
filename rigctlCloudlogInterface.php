@@ -1,35 +1,30 @@
 #!/usr/bin/php
 <?php
-/**
- * @brief        Cloudlog rigctld Interface
- * @date         2018-12-02
- * @author       Tobias Mädel <t.maedel@alfeld.de>
- * @copyright    MIT-licensed
- *
- */
 
 include("config.php");
 include("rigctld.php"); 
 
 $rigctl = new rigctldAPI($rigctl_host, $rigctl_port); 
 
+//$rigPower = ((int)shell_exec('rigctl -m2 \get_level RFPOWER')*100);
 $lastFrequency = false; 
 $lastMode = false; 
-
+$lastPower = false;
+$rigPower = false;
 while (true)
 {
 	$data = $rigctl->getFrequencyAndMode();
-
 	// check if we've gotten a proper response from rigctld
 	if ($data !== false)
 	{
-		// only send POST to cloudlog if the settings have changed
-		if ($lastFrequency != $data['frequency'] || $lastMode != $data['mode'] )
+		// only send POST to CloudLog if the settings have changed
+		if ($lastFrequency != $data['frequency'] || $lastMode != $data['mode'])
 		{
 			$data = [
 				"radio" => $radio_name,
 				"frequency" => $data['frequency'],
 				"mode" => $data['mode'],
+				"prop_mode" => "",
 
 				/* Found these additional parameter in magicbug's SatPC32 application. 
 				   I'm not much of a satellite op yet, so I'm not sure how these should be implemented (probably with the secondary VFOs?)
@@ -42,14 +37,16 @@ while (true)
 				"uplink_freq" => 0,
 				"downlink_mode" => 0,
 				"uplink_mode" => 0,
+				"power" =>  ((round((float)shell_exec('rigctl -m2 \get_level RFPOWER')*100))),
 				"key" => $cloudlog_apikey
-			];
+				];
 
 			postInfoToCloudlog($cloudlog_url, $data);
 			$lastMode = $data['mode'];
 			$lastFrequency = $data['frequency'];
+			$lastPower = $data['power'];
 
-			echo "Updated info. Frequency: " . $data['frequency'] . " - Mode: " . $data['mode'] . "\n";
+			echo "Updated info. Frequency: " . $data['frequency'] . " - Mode: " . $data['mode'] . " - Power: " . $data['power'] . "\n" ;
 		}
 		
 	}
