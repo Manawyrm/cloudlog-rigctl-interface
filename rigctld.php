@@ -2,7 +2,7 @@
 /**
  * @brief        rigctld API
  * @date         2018-12-03
- * @author       Tobias Mädel <t.maedel@alfeld.de>
+ * @author       Manawyrm
  * @copyright    MIT-licensed
  *
  */

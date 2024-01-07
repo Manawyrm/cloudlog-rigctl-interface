@@ -2,7 +2,7 @@
 /**
  * @brief        Configuration for the Cloudlog rigctld Interface
  * @date         2018-12-17
- * @author       Tobias Mädel <t.maedel@alfeld.de>
+ * @author       Manawyrm
  * @copyright    MIT-licensed
  *
  */
